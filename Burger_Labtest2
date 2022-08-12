@@ -1,0 +1,67 @@
+<form id="Burgerform" autocomplete="off">
+    <head>
+        <title>Burger</title>
+    </head>
+    <body>
+        <h1>
+            Design your own Burger
+        </h1>
+    </body>
+	<label>
+		<input id="Cheese" type="checkbox" value="10" data-itemname="Add Cheese">
+		Cheese: $10
+	</label>
+	<label>
+		<input id="Egg" type="checkbox" value="40" data-itemname="Add Egg">
+		Egg: $40
+	</label>
+    <label>
+		<input id="Olives" type="checkbox" value="20" data-itemname="Add Olives">
+		Olives: $20
+	</label>
+    <label>
+		<input id="Lettuce" type="checkbox" value="30" data-itemname="Add Lettuce">
+		Lettuce: $30
+	</label>
+</form>
+
+<div>
+	Selections:
+	<div id="selections"></div>
+	
+	Total Price: <span id="price"></span>
+</div>
+
+<script>
+var price = 200;
+document.getElementById('price').innerHTML = price;
+
+var options = document.getElementById('Burgerform').querySelectorAll('input');
+for(var i=0; i<options.length; i++){
+	options[i].onclick = handleOption;
+}
+
+function handleOption(){
+	var itemPrice = Number(this.value);
+	if(this.checked){
+		price += itemPrice;
+	}
+	else{
+		price -= itemPrice;
+	}
+
+	showSelections();
+	document.getElementById('price').innerHTML = price;
+}
+
+function showSelections(){
+	var list = [];
+	var checkedOnes = document.getElementById('Burgerform').querySelectorAll('input:checked');
+	for(var i=0; i<checkedOnes.length; i++){
+		var itemname = checkedOnes[i].getAttribute('data-itemname');
+		list.push(itemname);
+	}
+	document.getElementById('selections').innerHTML = list.join('<br>');
+}
+</script>
+
